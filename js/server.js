@@ -1,12 +1,12 @@
 let express  = require('express');
 let app = express();
 let bodyParser = require('body-parser');
-const multer = require('multer');
+//const multer = require('multer');
 let summarizer = require('./summarizer.js');
 let path = require('path');
 
-app.use(bodyParser.json());
 
+app.use(bodyParser.urlencoded({ extended: true }));
 const text3 = `
 Први светски рат је трајао од 1914. до 1918. године. У њему је учествовала већина великих светских сила, груписаних у два сукобљена војна савеза: Савезника (окупљених око Тројне Антанте) и Централних сила.[1] Више од 70 милиона људи је било под оружјем, а од тога преко 60 милиона људи у Европи је било мобилисано у један од највећих ратова у историји.[2][3] Последице рата су биле да је убијено више од 15 милиона људи, 20 милиона рањено, а директне учеснице рата претрпеле су и огромна разарања држава и привреда.[4] Први светски рат познат је и под именима Велики рат и Светски рат (до избијања Другог светског рата).
 
@@ -28,6 +28,15 @@ app.get('/', function(req, res) {
 
 app.post('/file', (req, res) => {
     
+});
+
+app.use(bodyParser.json());
+
+app.post('/textinput', (req, res) => {
+    console.log('Hello world!1');
+    console.log(req.body);
+    //res.set('Content-Type', 'text/plain');
+    res.send(summarizer.summarize(req.body.data, 10));
 });
 
 app.listen(3000, function(){
