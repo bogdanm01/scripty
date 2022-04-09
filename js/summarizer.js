@@ -32,6 +32,6 @@ const summarize = (text, num) => {
 };
  let result = sum({ 'corpus': text3, 'nSentences': 10 });
 
-console.log(result.summary);
+//console.log(result.summary);
 
 module.exports = { summarize };

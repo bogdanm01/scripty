@@ -4,10 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/summarizer.js"></script>
+    
     <title>Document</title>
 </head>
 <body>
-    
+    <!-- <form action="/textinput" method="POST">-->
+    <form>
+        <input type="textarea" name="plaintext" id="plaintext">
+        <!--<input type="submit" id="submitBtn"> -->
+    </form>
+    <button id="submitBtn">Send</button>
+    <p id="result"></p>
+
+    <script>
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.addEventListener('click', () => {
+            console.log('start fetch');
+            fetch('/textinput', {
+                method: 'post',
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                body: JSON.stringify({ "data": document.getElementById('plaintext').value })
+            }).then(data => data.json()).then(data => {document.getElementById('result').innerHTML = data.summary; console.log(data);});
+        });
+    </script>
 </body>
 </html>
