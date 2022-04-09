@@ -1,0 +1,40 @@
+{
+    "name": "sum",
+    "version": "0.1.4",
+    "description": "text summarization utility",
+    "homepage": "https://github.com/topliceanu/sum",
+    "license": "MIT",
+    "keywords": [
+        "summarization",
+        "nlp",
+        "stemmer",
+        "stop-words",
+        "express"
+    ],
+    "author": "alex.topliceanu <alexandru.topliceanu@gmail.com> (https://github.com/topliceanu)",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/topliceanu/sum.git"
+    },
+    "bugs": {
+        "url": "https://github.com/topliceanu/sum/issues"
+    },
+    "main": "./sum.js",
+    "scripts": {
+        "test": "./node_modules/.bin/vows --spec --isolate ./tests/node/sum.js",
+        "lint": "./node_modules/.bin/jshint sum.js"
+    },
+    "dependencies": {
+        "underscore": "1.7.0",
+        "underscore.string": "3.0.3",
+        "porter-stemmer": "0.9.1"
+    },
+    "devDependencies": {
+        "vows": "0.8.1",
+        "jshint": "2.6.0"
+    },
+    "optionalDependencies": {},
+    "engines": {
+        "node": ">0.10.0"
+    }
+}
