@@ -11249,6 +11249,105 @@ textarea.form-control-lg {
   background: url("../../img/Heart.png") no-repeat center center;
 }
 
+#get-started {
+  padding: 150px 0;
+}
+#get-started .heading {
+  color: #FAFAFA;
+  font-family: "Poppins", sans-serif;
+  font-size: 38px;
+  font-weight: 600;
+}
+#get-started .item-container {
+  justify-content: space-between;
+  padding: 0 10px;
+}
+#get-started .item-container .arrow {
+  position: absolute;
+  left: 180px;
+  bottom: 110px;
+}
+#get-started .item-container .item {
+  font-family: "Poppins", sans-serif;
+  position: relative;
+}
+#get-started .item-container .item .box {
+  height: 115px;
+  width: 115px;
+  background-color: #6DADF9;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  box-shadow: 0px 25px 54px 0px rgba(37, 186, 255, 0.3);
+}
+#get-started .item-container .item h3 {
+  color: #FAFAFA;
+  font-weight: 700;
+  font-size: 23px;
+}
+#get-started .item-container .item p {
+  margin-top: 15px;
+  font-size: 17px;
+  color: #D0D4D8;
+}
+#get-started .item-container #item-2 {
+  margin-top: 90px;
+}
+#get-started .item-container #item-3 {
+  margin-top: 170px;
+}
+#get-started .item-container #arrow-2 {
+  bottom: 80px;
+}
+
+@media screen and (max-width: 1399px) {
+  #get-started {
+    padding: 100px 0;
+  }
+  #get-started .item-container .arrow {
+    position: absolute;
+    left: 150px;
+    bottom: 130px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  #get-started {
+    padding: 100px 0;
+  }
+  #get-started .item-container .arrow {
+    display: none;
+  }
+  #get-started .item-container #item-2 {
+    margin-top: 15px;
+  }
+  #get-started .item-container #item-3 {
+    margin-top: 15px;
+  }
+  #get-started .item-container .item {
+    margin-top: 15px;
+  }
+}
+footer {
+  background: #102131;
+}
+footer .container {
+  padding: 20px 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer .container p {
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  margin: 0;
+}
+footer .container img {
+  height: 40px;
+}
+
 a {
   text-decoration: none;
 }
