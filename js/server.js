@@ -1,12 +1,26 @@
 let express  = require('express');
-let app = express();
-let bodyParser = require('body-parser');
 //const multer = require('multer');
 let summarizer = require('./summarizer.js');
 let path = require('path');
+let fs = require('fs');
+const fileUpload = require('express-fileupload');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const _ = require('lodash');
 
+let app = express();
+app.use(fileUpload({
+    createParentPath: true
+}));
 
-app.use(bodyParser.urlencoded({ extended: true }));
+//add other middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, '..','public/')));
+
 const text3 = `
 Први светски рат је трајао од 1914. до 1918. године. У њему је учествовала већина великих светских сила, груписаних у два сукобљена војна савеза: Савезника (окупљених око Тројне Антанте) и Централних сила.[1] Више од 70 милиона људи је било под оружјем, а од тога преко 60 милиона људи у Европи је било мобилисано у један од највећих ратова у историји.[2][3] Последице рата су биле да је убијено више од 15 милиона људи, 20 милиона рањено, а директне учеснице рата претрпеле су и огромна разарања држава и привреда.[4] Први светски рат познат је и под именима Велики рат и Светски рат (до избијања Другог светског рата).
 
@@ -20,22 +34,45 @@ const text3 = `
 `;
 
 const path_to_index = path.join(__dirname,'..','index.html');
-
+app.use(express.static(path.join(__dirname,'..', 'public/')));
+console.log(path.join(__dirname,'..', 'public/'));
 app.get('/', function(req, res) {
 	//res.send('<h1>Welcome to Node.js project setup</h1><p>'+summarizer.summarize(text3,10).summary+'</p>');
-    res.sendFile(path_to_index);
+    console.log(path.join(__dirname, '..', 'public','/index.html'));
+    res.sendFile(path.join(__dirname,'..', 'public', '/index.html'));
 });
 
-app.post('/file', (req, res) => {
-    
-});
+app.post('/file', async (req, res) => {
+    try {
+        if(!req.files) {
+            res.send({
+                status: false,
+                message: 'No file uploaded'
+            });
+        } else {
+            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
+            let avatar = req.files.avatar;
+            
+            //Use the mv() method to place the file in upload directory (i.e. "uploads")
+            avatar.mv('./uploads/' + avatar.name);
 
-app.use(bodyParser.json());
+            //send response
+            res.send({
+                status: true,
+                message: 'File is uploaded',
+                data: {
+                    name: avatar.name,
+                    mimetype: avatar.mimetype,
+                    size: avatar.size
+                }
+            });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
 
 app.post('/textinput', (req, res) => {
-    console.log('Hello world!1');
-    console.log(req.body);
-    //res.set('Content-Type', 'text/plain');
     res.send(summarizer.summarize(req.body.data, 10));
 });
 
