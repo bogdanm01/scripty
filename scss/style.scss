@@ -1,0 +1,27 @@
+@use 'custom';
+
+// importing componenets
+
+@use 'components/animations';
+@use 'components/buttons';
+@use 'components/mixins';
+@use 'components/typography';
+@use 'components/card';
+
+// importing sections
+
+@use 'sections/navbar';
+@use 'sections/intro-section';
+@use 'sections/features';
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background: #13293D;
+}
+
+* {
+  box-sizing: border-box;
+}

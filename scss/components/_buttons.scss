@@ -1,0 +1,45 @@
+@use '../custom' as *;
+
+.button {
+  padding: 15px 45px;
+  transition: all 0.5s ease;
+  margin: 0 15px;
+  text-align: center;
+  // width: 190px;
+}
+
+.btn-primary {
+  // margin-top: 5px;
+  color: #fafafa;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 30px;
+  background: rgb(84,189,248);
+  background: linear-gradient(180deg, rgba(84,189,248,1) 0%, rgba(74,130,240,1) 100%);
+
+  &:hover {
+    color: #fafafa;
+    box-shadow: 0px 0px 35px 1px rgba(100, 170, 250, 0.9), inset 0px 0px 10px 1px rgba(234, 249, 255, 0.9);
+    -webkit-box-shadow: 0px 0px 35px 1px rgba(100, 170, 250, 0.9), inset 0px 0px 10px 1px rgba(234, 249, 255, 0.9);
+    -moz-box-shadow: 0px 0px 35px 1px rgba(100, 170, 250, 0.9), inset 0px 0px 10px 1px rgba(234, 249, 255, 0.9);
+  }
+}
+
+.btn-outline {
+  
+  color: #fafafa;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 30px;
+  outline: 2px solid #589aec;
+
+  &:hover {
+    color: #fafafa;
+    box-shadow: 0px 0px 35px 1px rgba(100, 170, 250, 0.9), inset 0px 0px 10px 1px rgba(234, 249, 255, 0.9);
+    -webkit-box-shadow: 0px 0px 35px 1px rgba(100, 170, 250, 0.9), inset 0px 0px 10px 1px rgba(72, 165, 202, 0.9);
+    -moz-box-shadow: 0px 0px 35px 1px rgba(100, 170, 250, 0.9), inset 0px 0px 10px 1px rgba(130, 216, 250, 0.9);
+  }
+}
+
