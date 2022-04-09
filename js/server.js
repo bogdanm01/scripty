@@ -8,6 +8,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const _ = require('lodash');
+const multer = require('multer');
 
 let app = express();
 app.use(fileUpload({
@@ -42,7 +43,37 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname,'..', 'public', '/index.html'));
 });
 
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now())
+    }
+  })
+   
+  var upload = multer({ storage: storage })
+
+  app.post('/file', upload.single('myFile'), (req, res, next) => {
+    
+    console.log(req.files.avatar);
+    //console.log(file);
+    if (!req.files.avatar) {
+      const error = new Error('Please upload a file')
+      error.httpStatusCode = 400
+      return next(error)
+    }
+
+
+
+      res.sendStatus(200);
+    
+  })
+
+/*
 app.post('/file', async (req, res) => {
+    console.log(req.files);
+    console.log(req.file);
     try {
         if(!req.files) {
             res.send({
@@ -70,7 +101,7 @@ app.post('/file', async (req, res) => {
     } catch (err) {
         res.status(500).send(err);
     }
-});
+});*/
 
 app.post('/textinput', (req, res) => {
     res.send(summarizer.summarize(req.body.data, 10));
@@ -78,4 +109,8 @@ app.post('/textinput', (req, res) => {
 
 app.listen(3000, function(){
 	console.log("Server started on port: 3000");
+});
+
+app.get('/test', (req, res) => {
+    res.sendFile(path.join(__dirname,'..', 'public', 'test.html'));
 });
