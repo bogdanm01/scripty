@@ -24,7 +24,8 @@
     "express": "^4.17.3",
     "postcss-cli": "^9.1.0",
     "sass": "^1.50.0",
-    "sum": "^0.1.4"
+    "sum": "^0.1.4",
+    "word-extractor": "^1.0.4"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1"
