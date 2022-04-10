@@ -1,17 +1,21 @@
 const PDFGenerator = require('pdfkit')
 const fs = require('fs');
 
-let theOutput = new PDFGenerator
+const generatePDF = (text, fileName) => {
+  let theOutput = new PDFGenerator
 
-theOutput.pipe(fs.createWriteStream('ScriptySummarizedDocument.pdf'))
+  theOutput.pipe(fs.createWriteStream(fileName));
 
-theOutput.image('./public/img/scriptyPdfLogo.png', {
+  theOutput.image('./public/img/scriptyPdfLogo.png', {
     fit: [100, 100],
   });
 
-const text = 'TestčćšđžчћшђжљњTestčćšđžчћшђжљњTestčćšđžчћшђжљњ'
+  theOutput.font('js/Roboto-Regular.ttf')
+    .text(text);
 
-theOutput.font('js/Roboto-Regular.ttf')
-    .text(text)
+  theOutput.end();
 
-theOutput.end()
+  return true;
+};
+
+module.exports = { generatePDF };

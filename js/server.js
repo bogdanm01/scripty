@@ -3,14 +3,12 @@ let summarizer = require('./summarizer.js');
 let path = require('path');
 let fs = require('fs');
 const bodyParser = require('body-parser');
+let pdfGen = require('./pdf_generator.js');
 
 let app = express();
-app.use(fileUpload({
-    createParentPath: true
-}));
+
 
 //add other middleware
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -34,7 +32,13 @@ app.get('/', function(req, res) {
 });
 
 app.post('/textinput', (req, res) => {
-    res.send(summarizer.summarize(req.body.data, 10));
+    
+    let summaryText = summarizer.summarize(req.body.data, 10);
+
+    console.log(summaryText);
+    pdfGen.generatePDF(summaryText.summary, 'pdfTest.pdf');
+    
+    res.sendStatus(200);
 });
 
 app.listen(3000, function(){
