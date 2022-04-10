@@ -13,7 +13,7 @@ const generatePDF = (text, fileName) => {
   theOutput.font('js/Roboto-Regular.ttf')
     .moveDown()
   .text(text,{
-    align: 'justifi'
+    align: 'justify'
   })
     
 
