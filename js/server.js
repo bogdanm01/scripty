@@ -1,81 +1,55 @@
 let express  = require('express');
-//const multer = require('multer');
 let summarizer = require('./summarizer.js');
 let path = require('path');
 let fs = require('fs');
-const fileUpload = require('express-fileupload');
-const cors = require('cors');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const _ = require('lodash');
-
-let app = express();
-app.use(fileUpload({
-    createParentPath: true
-}));
-
-//add other middleware
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, '..','public/')));
+let pdfGen = require('./pdf_generator.js');
 
 const text3 = `
-Први светски рат је трајао од 1914. до 1918. године. У њему је учествовала већина великих светских сила, груписаних у два сукобљена војна савеза: Савезника (окупљених око Тројне Антанте) и Централних сила.[1] Више од 70 милиона људи је било под оружјем, а од тога преко 60 милиона људи у Европи је било мобилисано у један од највећих ратова у историји.[2][3] Последице рата су биле да је убијено више од 15 милиона људи, 20 милиона рањено, а директне учеснице рата претрпеле су и огромна разарања држава и привреда.[4] Први светски рат познат је и под именима Велики рат и Светски рат (до избијања Другог светског рата).
+By the early part of 1939 the German dictator Adolf Hitler had become determined to invade and occupy Poland. Poland, for its part, had guarantees of French and British military support should it be attacked by Germany. Hitler intended to invade Poland anyway, but first he had to neutralize the possibility that the Soviet Union would resist the invasion of its western neighbour. Secret negotiations led on August 23–24 to the signing of the German-Soviet Nonaggression Pact in Moscow. In a secret protocol of this pact, the Germans and the Soviets agreed that Poland should be divided between them, with the western third of the country going to Germany and the eastern two-thirds being taken over by the U.S.S.R.
 
-Први светски рат су водила два велика савеза. Силе Антанте су на почетку чиниле Србија, Црна Гора, Русија, Француска, Велика Британија и Јапан. Централне силе су пре почетка рата чиниле Немачка, Аустроугарска и Италија, која је због Лондонског уговора од 26. априла 1915. године, којим је за Италију предвиђен део Далмације, Истра, Горица, Кварнерска острва и Додоканези, приступила силама Антанте. Османско царство се придружило Централним силама октобра 1914, а годину дана касније то је урадила и Бугарска. САД улазе у рат 6. априла 1917. после објављивања Цимермановог телеграма којим добијају повод. Румунија приступа Антанти 1916 када је потписан Букурешки споразум. Грчка је на почетку рата била неутрална, али 1917. приступа страни Антанте. До завршетка рата, од европских земаља Холандија, Швајцарска, Шпанија и скандинавске државе су остале званично неутралне.
-
-Непосредни повод за рат је био атентат на наследника аустроугарског престола, надвојводу Франца Фердинанда у Сарајеву 28. јуна 1914, кога је убио Гаврило Принцип, Србин из Босне, која је тада била део Аустроугарске. Објава рата Аустроугарске Србији активирала је низ савезништава која су покренула ланчану реакцију објава рата. До краја августа 1914. већи део Европе се нашао у рату.
-
-Рат се водио на неколико ратишта који су пресецали Европу. Западни фронт се одликовао системом ровова и утврђења које је одвајала ничија земља. Ова утврђења су се простирала дужином већом од 600 km. Западни фронт простирао се од Антверпена на северу до неутралне Швајцарске на југу. На Источном фронту, који се водио на дужини од 1600 km, велика пространства источноевропских низија и ограничена железничка мрежа нису омогућиле да се овде развије стање као на Западном фронту, иако су сукоби били подједнако жестоки. Поред тога, жестоки сукоби су вођени на Балканском, Блискоисточном и Италијанском фронту, а непријатељства су се одвијала на мору, и по први пут, у ваздуху.
-
-Рат је окончан потписивањем неколико мировних споразума, од којих је најважнији Версајски мир 28. јуна 1919, иако су силе Антанте потписале примирје са Немачком 11. новембра 1918. Најуочљивија последица рата је била нова територијална подела Европе. Све чланице Централних сила изгубиле су територије, а створене су нове државе. Немачко царство је изгубило своје колоније, проглашено је одговорном за рат и принуђено да плаћа велику одштету. Аустроугарска и Османско царство су били распуштени. Од територија које је заузимала Аустроугарска створене су Аустрија, Мађарска, Чехословачка и Краљевство СХС. Османско царство је укинуто, територије Царства ван Анадолије су биле додељена као протекторати силама Антанте, док је језгро Османског царства реорганизован у Републику Турску. Руска Империја, која је изашла из рата након Октобарске револуције, је изгубила велики део територије на западу, а на тим територијама створене су нове државе: Финска, Естонија, Летонија, Литванија и Пољска. Након рата основано је Друштво народа као међународна организација посвећена избегавању будућих ратова решавањем спорова између држава дипломатским путем. Први светски рат је означио крај поретка који је постојао након Наполеонових ратова и био је важан фактор избијању Другог светског рата.
+Having achieved this cynical agreement, the other provisions of which stupefied Europe even without divulgence of the secret protocol, Hitler thought that Germany could attack Poland with no danger of Soviet or British intervention and gave orders for the invasion to start on August 26. News of the signing, on August 25, of a formal treaty of mutual assistance between Great Britain and Poland (to supersede a previous though temporary agreement) caused him to postpone the start of hostilities for a few days. He was still determined, however, to ignore the diplomatic efforts of the western powers to restrain him. Finally, at 12:40 pm on August 31, 1939, Hitler ordered hostilities against Poland to start at 4:45 the next morning. The invasion began as ordered. In response, Great Britain and France declared war on Germany on September 3, at 11:00 am and at 5:00 pm, respectively. World War II had begun.
 `;
+
+let app = express();
+
+//add other middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 const path_to_index = path.join(__dirname,'..','index.html');
 app.use(express.static(path.join(__dirname,'..', 'public/')));
-console.log(path.join(__dirname,'..', 'public/'));
 app.get('/', function(req, res) {
-	//res.send('<h1>Welcome to Node.js project setup</h1><p>'+summarizer.summarize(text3,10).summary+'</p>');
-    console.log(path.join(__dirname, '..', 'public','/index.html'));
     res.sendFile(path.join(__dirname,'..', 'public', '/index.html'));
 });
 
-app.post('/file', async (req, res) => {
-    try {
-        if(!req.files) {
-            res.send({
-                status: false,
-                message: 'No file uploaded'
-            });
-        } else {
-            //Use the name of the input field (i.e. "avatar") to retrieve the uploaded file
-            let avatar = req.files.avatar;
-            
-            //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            avatar.mv('./uploads/' + avatar.name);
-
-            //send response
-            res.send({
-                status: true,
-                message: 'File is uploaded',
-                data: {
-                    name: avatar.name,
-                    mimetype: avatar.mimetype,
-                    size: avatar.size
-                }
-            });
-        }
-    } catch (err) {
-        res.status(500).send(err);
-    }
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname,'..', 'public', '/summarizer.html'));
 });
 
 app.post('/textinput', (req, res) => {
-    res.send(summarizer.summarize(req.body.data, 10));
+    
+    let summaryText = summarizer.summarize(req.body.data, 10);
+
+    console.log(summaryText);
+    pdfGen.generatePDF(summaryText.summary, 'pdfTest.pdf');
+    
+    res.sendStatus(200);
+});
+
+app.post('/summarizeText', (req, res) => {
+    
+    let summaryText = summarizer.summarize(req.body.data, req.body.sentencesCount);
+
+    res.send(JSON.stringify({data: summaryText.summary}));
+
+    res.sendStatus(200);
 });
 
 app.listen(3000, function(){
 	console.log("Server started on port: 3000");
+});
+
+app.get('/test', (req, res) => {
+    res.sendFile(path.join(__dirname,'..', 'public', 'test.html'));
 });
