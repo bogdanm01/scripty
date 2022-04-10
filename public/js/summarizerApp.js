@@ -19,6 +19,10 @@ document.getElementById('summarize-btn').addEventListener("click", function () {
   })
 });
 
+window.addEventListener('load', (event) => {
+  textInput.value = "";
+});
+
 document.getElementById('clear-btn').addEventListener("click", function () {
   textInput.value = "";
 })
@@ -28,7 +32,8 @@ document.getElementById('range').addEventListener('input', function () {
 }, false);
 
 document.getElementById('pdf-export-button').addEventListener('click', () => {
-  console.log(document.getElementById('textInput').value);
+  if (!(document.getElementById('textInput').value === "")) {
+    console.log(document.getElementById('textInput').value);
   fetch('/textinput', {
     body: JSON.stringify(
       {data: document.getElementById('textInput').value, 
@@ -39,6 +44,10 @@ document.getElementById('pdf-export-button').addEventListener('click', () => {
       "Content-Type": "application/json"
     }
   });
+
+  document.getElementById('download-pdf').disabled = false;
+  }
+  
   //.then(response => response.json()).then(data => console.log(data));
 
   
