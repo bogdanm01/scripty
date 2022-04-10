@@ -38,12 +38,10 @@ app.post('/textinput', (req, res) => {
 });
 
 app.post('/summarizeText', (req, res) => {
-    
-    let summaryText = summarizer.summarize(req.body.data, req.body.sentencesCount);
-
+    console.log(req.body);
+    let summaryText = summarizer.summarize(req.body.data, req.body.range);
+    console.log(JSON.stringify({data: summaryText.summary}));
     res.send(JSON.stringify({data: summaryText.summary}));
-
-    res.sendStatus(200);
 });
 
 app.listen(3000, function(){
