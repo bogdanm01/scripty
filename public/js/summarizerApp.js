@@ -15,6 +15,10 @@ document.getElementById('summarize-btn').addEventListener("click", function () {
   }).then(data => data.json())
   .then(data => {
     console.log(data.data);
-    document.getElementById('textInput').value = data.data;
+    document.getElementById('textInput').value = data.data.trim();
   })
 });
+
+document.getElementById('clear-btn').addEventListener("click", function () {
+  textInput.value = "";
+})
