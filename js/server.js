@@ -39,7 +39,7 @@ app.post('/textinput', (req, res) => {
 
 app.post('/summarizeText', (req, res) => {
     console.log(req.body);
-    let summaryText = summarizer.summarize(req.body.data, req.body.range);
+    let summaryText = summarizer.summarize(req.body.data, parseInt(req.body.range));
     console.log(JSON.stringify({data: summaryText.summary}));
     res.send(JSON.stringify({data: summaryText.summary}));
 });

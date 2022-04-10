@@ -6,13 +6,15 @@ document.getElementById('summarize-btn').addEventListener("click", function () {
   fetch('/summarizeText', {
     body: JSON.stringify(
       {data: document.getElementById('textInput').value, 
-       range: document.getElementById('sentencesCount').value }), 
+       range: document.getElementById('sentencesCount').value 
+      }), 
     method: 'post',
     headers: {
       "Content-Type": "application/json"
     }
-  }).then(data => data.json()
+  }).then(data => data.json())
   .then(data => {
-    textInput.innerHTML = data;
-  }))
+    console.log(data.data);
+    document.getElementById('textInput').value = data.data;
+  })
 });
