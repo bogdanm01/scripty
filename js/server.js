@@ -29,21 +29,19 @@ app.get('/', function(req, res) {
 
 app.post('/textinput', (req, res) => {
     
-    let summaryText = summarizer.summarize(req.body.data, 10);
+    let summaryText = summarizer.summarize(req.body.data, parseInt(req.body.range));
 
     console.log(summaryText);
-    pdfGen.generatePDF(summaryText.summary, 'pdfTest.pdf');
+    pdfGen.generatePDF(summaryText.summary, 'pdfResult.pdf');
     
     res.sendStatus(200);
 });
 
 app.post('/summarizeText', (req, res) => {
-    
-    let summaryText = summarizer.summarize(req.body.data, req.body.sentencesCount);
-
+    console.log(req.body);
+    let summaryText = summarizer.summarize(req.body.data, parseInt(req.body.range));
+    console.log(JSON.stringify({data: summaryText.summary}));
     res.send(JSON.stringify({data: summaryText.summary}));
-
-    res.sendStatus(200);
 });
 
 app.listen(3000, function(){
@@ -53,3 +51,7 @@ app.listen(3000, function(){
 app.get('/test', (req, res) => {
     res.sendFile(path.join(__dirname,'..', 'public', 'test.html'));
 });
+
+app.post('/getpdf', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', "pdfResult.pdf"));
+})

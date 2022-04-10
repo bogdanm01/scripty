@@ -11353,7 +11353,7 @@ footer .container img {
 
 #summarizer {
   padding-top: 80px;
-  height: 79vh;
+  padding-bottom: 140px;
 }
 #summarizer .big-button {
   display: flex;
@@ -11367,6 +11367,7 @@ footer .container img {
   align-items: center;
   justify-content: center;
   margin-bottom: 5px;
+  transition: all 0.5s ease;
 }
 #summarizer .big-button h3 {
   font-size: 20px;
@@ -11374,6 +11375,9 @@ footer .container img {
 }
 #summarizer .big-button:last-child {
   margin-bottom: 0;
+}
+#summarizer .big-button:hover {
+  transform: scale(1.05);
 }
 #summarizer .big-button.outline {
   background-color: #13293D;
@@ -11410,13 +11414,34 @@ a {
   text-decoration: none;
 }
 
+button {
+  border: none;
+}
+
 body {
   background: #13293D;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+     supported by Chrome, Edge, Opera and Firefox */
 }
 
 /*# sourceMappingURL=style.css.map */
