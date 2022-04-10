@@ -15,6 +15,7 @@
 @use 'sections/features';
 @use 'sections/get-started';
 @use 'sections/footer';
+@use 'sections/summarizer';
 
 a {
   text-decoration: none;
@@ -22,6 +23,8 @@ a {
 
 body {
   background: #13293D;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 * {

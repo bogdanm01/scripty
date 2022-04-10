@@ -11413,6 +11413,7 @@ a {
 body {
   background: #13293D;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 * {
