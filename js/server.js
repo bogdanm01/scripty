@@ -31,6 +31,10 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname,'..', 'public', '/index.html'));
 });
 
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname,'..', 'public', '/summarizer.html'));
+});
+
 app.post('/textinput', (req, res) => {
     
     let summaryText = summarizer.summarize(req.body.data, 10);
