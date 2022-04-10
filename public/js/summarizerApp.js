@@ -22,3 +22,7 @@ document.getElementById('summarize-btn').addEventListener("click", function () {
 document.getElementById('clear-btn').addEventListener("click", function () {
   textInput.value = "";
 })
+
+document.getElementById('sentencesCount').addEventListener('input', function () {
+  document.getElementById('sentencesCountSpan').innerHTML = document.getElementById('sentencesCount').value;
+}, false);
