@@ -11367,6 +11367,7 @@ footer .container img {
   align-items: center;
   justify-content: center;
   margin-bottom: 5px;
+  transition: all 0.5s ease;
 }
 #summarizer .big-button h3 {
   font-size: 20px;
@@ -11374,6 +11375,9 @@ footer .container img {
 }
 #summarizer .big-button:last-child {
   margin-bottom: 0;
+}
+#summarizer .big-button:hover {
+  transform: scale(1.05);
 }
 #summarizer .big-button.outline {
   background-color: #13293D;
